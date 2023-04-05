@@ -37,14 +37,18 @@ app.post("/tweets", (req, resp) => {
   const userExists = users.find((user) => user.username === username);
 
   if (!userExists) {
-    return resp.status(401).send("UNAUTHORIZED");
+    return resp
+        .status(401)
+        .send("UNAUTHORIZED");
   }
 
   const newTweet = { username, tweet };
   tweets.push(newTweet);
-  console.log(tweets);
+  console.log(`Novo tweet de ${username}: ${tweet}`);
 
-  return resp.send("OK");
+  return resp
+    .status(200)
+    .send("OK");
 });
 
 app.get("/tweets", (req, resp) => {
@@ -52,10 +56,13 @@ app.get("/tweets", (req, resp) => {
 
   const tweetsWithAvatar = lastTenTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
-    return user ? { ...tweet, avatar: user.avatar } : tweet;
+    const avatar = user ? user.avatar : null;
+    return { ...tweet, avatar };
   });
 
-  resp.send(tweetsWithAvatar);
+  return resp
+    .status(200)
+    .send(tweetsWithAvatar);
 });
 
 const DOOR = 5000;
