@@ -1,4 +1,4 @@
-# Twitter API
+# Tweteroo API
 
 Tweteroo is a Twitter Clone API, built in Node.js using global variables in memory to persist data from users and tweets.
 
