@@ -26,7 +26,7 @@ The project was built in Node.js using the Express.js framework to handle HTTP r
 2. Navigate to the project folder via the terminal.
 3. Install the project's dependencies with the npm install command.
 4. Start the application with the npm start command.
-5. The application will be running on http://localhost:3000.
+5. The application will be running on http://localhost:5000.
 
 _____
 
@@ -41,7 +41,7 @@ To register a user, send a POST request to http://localhost:5000/sign-up with th
     }
     
  ### POST /tweets
-To post a tweet, send a POST request to http://localhost:3000/tweets with the following request body:
+To post a tweet, send a POST request to http://localhost:5000/tweets with the following request body:
 
     {
         "username": "bobesponja",
@@ -49,7 +49,7 @@ To post a tweet, send a POST request to http://localhost:3000/tweets with the fo
     }
 
 ### GET /tweets
-To access the last 10 posted tweets, send a GET request to http://localhost:3000/tweets. The result will be an array with the following format:
+To access the last 10 posted tweets, send a GET request to http://localhost:5000/tweets. The result will be an array with the following format:
 
     [
         {
