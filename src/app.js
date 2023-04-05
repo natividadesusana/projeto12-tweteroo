@@ -32,23 +32,31 @@ app.post("/sign-up", (req, resp) => {
 });
 
 app.post("/tweets", (req, resp) => {
-    const { username, tweet } = req.body;
-  
-    const userExists = users.find(user => user.username === username);
-  
-    if (!userExists) {
-      return resp
-      .status(401)
-      .send("UNAUTHORIZED");
-    }
-  
-    const newTweet = { username, tweet };
-    tweets.push(newTweet);
-    console.log(tweets);
-  
-    return resp.send("OK");
+  const { username, tweet } = req.body;
+
+  const userExists = users.find((user) => user.username === username);
+
+  if (!userExists) {
+    return resp.status(401).send("UNAUTHORIZED");
+  }
+
+  const newTweet = { username, tweet };
+  tweets.push(newTweet);
+  console.log(tweets);
+
+  return resp.send("OK");
+});
+
+app.get("/tweets", (req, resp) => {
+  const lastTenTweets = tweets.slice(-10);
+
+  const tweetsWithAvatar = lastTenTweets.map((tweet) => {
+    const user = users.find((user) => user.username === tweet.username);
+    return user ? { ...tweet, avatar: user.avatar } : tweet;
   });
-  
+
+  resp.send(tweetsWithAvatar);
+});
 
 const DOOR = 5000;
 app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR} ...`));
