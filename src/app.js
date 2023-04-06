@@ -28,7 +28,8 @@ app.post("/sign-up", (req, resp) => {
 });
 
 app.post("/tweets", (req, resp) => {
-  const { username, tweet } = req.body;
+  const username = req.header('user');
+  const tweet = req.body.tweet;
 
   const isUserRegistered = users.find((user) => user.username === username);
 
