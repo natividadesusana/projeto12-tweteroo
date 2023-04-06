@@ -57,4 +57,4 @@ app.get("/tweets", (req, resp) => {
 });
 
 const DOOR = 5000;
-app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR} ...`));
+app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR}`));
