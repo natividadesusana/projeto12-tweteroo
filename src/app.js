@@ -5,19 +5,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const users = [
-  {
-    username: "bobesponja",
-    avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
-  },
-];
-
-const tweets = [
-  {
-    username: "bobesponja",
-    tweet: "Eu amo hambúrguer de siri!",
-  },
-];
+const users = [];
+const tweets = [];
 
 app.post("/sign-up", (req, resp) => {
   const { username, avatar } = req.body;
@@ -34,9 +23,9 @@ app.post("/sign-up", (req, resp) => {
 app.post("/tweets", (req, resp) => {
   const { username, tweet } = req.body;
 
-  const userExists = users.find((user) => user.username === username);
+  const isUserRegistered = users.find((user) => user.username === username);
 
-  if (!userExists) {
+  if (!isUserRegistered) {
     return resp
         .status(401)
         .send("UNAUTHORIZED");
@@ -52,9 +41,9 @@ app.post("/tweets", (req, resp) => {
 });
 
 app.get("/tweets", (req, resp) => {
-  const lastTenTweets = tweets.slice(-10);
+  const latestTweets = tweets.slice(-10);
 
-  const tweetsWithAvatar = lastTenTweets.map((tweet) => {
+  const tweetAvatars = latestTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
     const avatar = user ? user.avatar : null;
     return { ...tweet, avatar };
@@ -62,7 +51,7 @@ app.get("/tweets", (req, resp) => {
 
   return resp
     .status(200)
-    .send(tweetsWithAvatar);
+    .send(tweetAvatars);
 });
 
 const DOOR = 5000;
