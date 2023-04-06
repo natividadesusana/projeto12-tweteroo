@@ -33,14 +33,14 @@ app.post("/tweets", (req, resp) => {
   const isUserRegistered = users.find((user) => user.username === username);
 
   if (!isUserRegistered) {
-    resp.status(401).send("UNAUTHORIZED");
+    resp.status(400).send("UNAUTHORIZED");
     return
   }
 
   tweets.push({ username, tweet });
   console.log(`Novo tweet de ${username}: ${tweet}`);
 
-  return resp.status(200).send("OK");
+  return resp.status(201).send("OK");
 });
 
 app.get("/tweets", (req, resp) => {
@@ -55,5 +55,5 @@ app.get("/tweets", (req, resp) => {
   return resp.status(200).send(tweetAvatars);
 });
 
-const DOOR = 5000;
+const DOOR = 3000;
 app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR} ...`));
