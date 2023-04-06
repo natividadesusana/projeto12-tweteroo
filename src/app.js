@@ -19,7 +19,7 @@ app.post("/sign-up", (req, resp) => {
 
   if (error) {
     resp.status(400).send("Todos os campos são obrigatórios!");
-    return
+    return;
   }
 
   users.push(req.body);
@@ -28,14 +28,14 @@ app.post("/sign-up", (req, resp) => {
 });
 
 app.post("/tweets", (req, resp) => {
-  const username = req.header('user');
+  const username = req.header("user");
   const tweet = req.body.tweet;
 
   const isUserRegistered = users.find((user) => user.username === username);
 
   if (!isUserRegistered) {
-    resp.status(401).send("UNAUTHORIZED");
-    return
+    resp.status(400).send("UNAUTHORIZED");
+    return;
   }
 
   tweets.push({ username, tweet });
@@ -59,11 +59,11 @@ app.get("/tweets", (req, resp) => {
 app.get("/tweets/:username", (req, resp) => {
   const { username } = req.params;
 
-  const userTweets = tweets.filter((tweet) => tweet.username === username); 
+  const userTweets = tweets.filter((tweet) => tweet.username === username);
 
   if (userTweets.length === 0) {
     resp.status(200).send([]);
-    return 
+    return;
   }
 
   const tweetAvatars = userTweets.map((tweet) => {
@@ -73,7 +73,7 @@ app.get("/tweets/:username", (req, resp) => {
   });
 
   return resp.status(200).send(tweetAvatars);
-})
+});
 
 const DOOR = 5000;
 app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR}`));
