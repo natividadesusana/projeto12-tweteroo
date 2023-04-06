@@ -56,5 +56,5 @@ app.get("/tweets", (req, resp) => {
   return resp.status(200).send(tweetAvatars);
 });
 
-const DOOR = 3000;
+const DOOR = 5000;
 app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR} ...`));
