@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import Joi from "joi";
 
 const app = express();
 app.use(cors());
@@ -8,16 +9,22 @@ app.use(express.json());
 const users = [];
 const tweets = [];
 
-app.post("/sign-up", (req, resp) => {
-  const { username, avatar } = req.body;
+const schema = Joi.object({
+  username: Joi.string().required(),
+  avatar: Joi.string().required(),
+});
 
-  if (username && avatar) {
-    users.push(req.body);
-    return resp.status(201).send("OK");
+app.post("/sign-up", (req, resp) => {
+  const { error } = schema.validate(req.body);
+
+  if (error) {
+    resp.status(400).send("Todos os campos são obrigatórios!");
+    return
   }
-  return resp
-    .status(400)
-    .send("O nome de usuário e o avatar são obrigatórios!");
+
+  users.push(req.body);
+
+  return resp.status(201).send("OK");
 });
 
 app.post("/tweets", (req, resp) => {
@@ -26,18 +33,14 @@ app.post("/tweets", (req, resp) => {
   const isUserRegistered = users.find((user) => user.username === username);
 
   if (!isUserRegistered) {
-    return resp
-        .status(401)
-        .send("UNAUTHORIZED");
+    resp.status(401).send("UNAUTHORIZED");
+    return
   }
 
-  const newTweet = { username, tweet };
-  tweets.push(newTweet);
+  tweets.push({ username, tweet });
   console.log(`Novo tweet de ${username}: ${tweet}`);
 
-  return resp
-    .status(200)
-    .send("OK");
+  return resp.status(200).send("OK");
 });
 
 app.get("/tweets", (req, resp) => {
@@ -49,9 +52,7 @@ app.get("/tweets", (req, resp) => {
     return { ...tweet, avatar };
   });
 
-  return resp
-    .status(200)
-    .send(tweetAvatars);
+  return resp.status(200).send(tweetAvatars);
 });
 
 const DOOR = 5000;
