@@ -5,6 +5,8 @@ Tweteroo is a Twitter Clone API, built in Node.js using global variables in memo
 ## About
 The Tweteroo API allows users to register and post tweets on their profile. Tweets are stored in an array and can be accessed by the last 10 tweets. In addition, the API validates that the user is registered before allowing him to post a tweet.
 
+<hr/>
+
 ## Key features
 User registration with username and avatar
 posting tweets
@@ -14,11 +16,16 @@ Next steps
 Implementing User Authentication
 Add replies to tweets
 
+<hr/>
+
 ## Technologies
-node.js
-express.js
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)&nbsp;
+![Express.js](https://img.shields.io/badge/Express.js-20B2AA?style=for-the-badge&logo=express&logoColor=white)&nbsp;
 
 The project was built in Node.js using the Express.js framework to handle HTTP requests.
+
+<hr/>
 
 ## How to run the project
 
@@ -28,7 +35,7 @@ The project was built in Node.js using the Express.js framework to handle HTTP r
 4. Start the application with the npm start command.
 5. The application will be running on http://localhost:5000.
 
-_____
+<hr/>
 
 # How to use the API
 
