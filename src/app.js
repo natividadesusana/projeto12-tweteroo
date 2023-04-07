@@ -48,15 +48,21 @@ app.post("/tweets", (req, resp) => {
 
   tweets.push({ username, tweet });
   console.log(`Novo tweet de ${username}: ${tweet}`);
+
+  return resp.status(201).send("CREATED");
 });
 
 app.get("/tweets", (req, resp) => {
   const latestTweets = tweets.slice(-10);
 
+  if (latestTweets.length > 10) {
+    latestTweets = latestTweets.slice(latestTweets.length - 10);
+  }
+
   const tweetAvatars = latestTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
     const avatar = user ? user.avatar : null;
-    return { ...tweet, avatar };
+    return { ...tweet, avatar, username: tweet.username, tweet: tweet.tweet };
   });
 
   return resp.status(200).send(tweetAvatars);
@@ -75,7 +81,7 @@ app.get("/tweets/:username", (req, resp) => {
   const tweetAvatars = userTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
     const avatar = user ? user.avatar : null;
-    return { ...tweet, avatar };
+    return { ...tweet, avatar, username: tweet.username, tweet: tweet.tweet };
   });
 
   return resp.status(200).send(tweetAvatars);
