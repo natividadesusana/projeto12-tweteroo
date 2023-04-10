@@ -53,16 +53,11 @@ app.post("/tweets", (req, resp) => {
 });
 
 app.get("/tweets", (req, resp) => {
-  const page = Number(req.query.page) || 1;
+  const latestTweets = tweets.slice(-10);
 
-  if (page < 1) {
-    return resp.status(400).send("Informe uma página válida!");
+  if (latestTweets.length > 10) {
+    latestTweets = latestTweets.slice(latestTweets.length - 10);
   }
-
-  const indexInitial = (page - 1) * 10;
-  const indexFinal = indexInitial + 10;
-
-  latestTweets = tweets.slice(-indexFinal, -indexInitial);
 
   const tweetAvatars = latestTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
