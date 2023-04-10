@@ -53,13 +53,14 @@ app.post("/tweets", (req, resp) => {
 });
 
 app.get("/tweets", (req, resp) => {
-  const latestTweets = tweets.slice(-10);
+  const page = parseInt(req.query.page) || 1; 
+  const pageTweets = 10;
+  const indexInitial = (page - 1) * pageTweets;
+  const indexFinal = indexInitial + pageTweets;
 
-  if (latestTweets.length > 10) {
-    latestTweets = latestTweets.slice(latestTweets.length - 10);
-  }
+  const paginatedTweets = tweets.slice(indexInitial, indexFinal);
 
-  const tweetAvatars = latestTweets.map((tweet) => {
+  const tweetAvatars = paginatedTweets.map((tweet) => {
     const user = users.find((user) => user.username === tweet.username);
     const avatar = user ? user.avatar : null;
     return { ...tweet, avatar, username: tweet.username, tweet: tweet.tweet };
@@ -67,7 +68,6 @@ app.get("/tweets", (req, resp) => {
 
   return resp.status(200).send(tweetAvatars);
 });
-
 app.get("/tweets/:username", (req, resp) => {
   const { username } = req.params;
 
@@ -89,3 +89,4 @@ app.get("/tweets/:username", (req, resp) => {
 
 const DOOR = 5000;
 app.listen(DOOR, () => console.log(`Servidor rodando na porta ${DOOR}`));
+
