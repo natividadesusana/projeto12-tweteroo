@@ -53,7 +53,12 @@ app.post("/tweets", (req, resp) => {
 });
 
 app.get("/tweets", (req, resp) => {
-  const page = parseInt(req.query.page) || 1; 
+  const page = parseInt(req.query.page) || 1;
+
+  if (page < 1 || isNaN(page)) {
+    return resp.status(400).send("Informe uma página válida!");
+  }
+
   const pageTweets = 10;
   const indexInitial = (page - 1) * pageTweets;
   const indexFinal = indexInitial + pageTweets;
@@ -68,6 +73,8 @@ app.get("/tweets", (req, resp) => {
 
   return resp.status(200).send(tweetAvatars);
 });
+
+
 app.get("/tweets/:username", (req, resp) => {
   const { username } = req.params;
 
