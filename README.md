@@ -2,6 +2,12 @@
 
 Tweteroo is a Twitter Clone API, built in Node.js using global variables in memory to persist data from users and tweets.
 
+<div>
+    <img width="238" alt="Captura de Tela 2023-04-10 às 21 30 44" src="https://user-images.githubusercontent.com/95102911/231024891-acf8fde1-a0d4-4a9a-83e8-489be36fcc2c.png">
+    <img width="239" alt="Captura de Tela 2023-04-10 às 21 31 08" src="https://user-images.githubusercontent.com/95102911/231024941-c9a6593a-ef97-4d33-9d74-babc9c50d68e.png">
+</div>
+
+
 ## About
 The Tweteroo API allows users to register and post tweets on their profile. Tweets are stored in an array and can be accessed by the last 10 tweets. In addition, the API validates that the user is registered before allowing him to post a tweet.
 
